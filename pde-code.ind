@@ -1,0 +1,147 @@
+\begin{theindex}
+
+  \item \texttt{abf2d\_elt()}, 64
+  \item \texttt{abfs2d\_elt()}, 64
+  \item \texttt{abfs2d\_get\_Aphihat()}, 65
+  \item \texttt{abfs2d\_pxfeature()}, 66
+  \item assembly2d(), 19, 24
+  \item \texttt{assembly2d()}, 9, 12
+  \item \texttt{assembly2d\_nl()}, 28
+  \item \texttt{assembly2dbdry()}, 31
+
+  \indexspace
+
+  \item bedges, 41
+  \item bnodes, 15, 41
+  \item \texttt{boundary2d()}, 40
+
+  \indexspace
+
+  \item \texttt{check\_derivs()}, 92
+  \item coeffs, 9
+  \item \texttt{const2d\_elt()}, 56
+  \item \texttt{const2d\_get\_Aphihat()}, 58
+  \item convection--diffusion problem, 13
+  \item \texttt{create\_fht()}, 35
+  \item \texttt{cub2d\_elt()}, 53
+  \item \texttt{cub2d\_get\_Aphihat()}, 54
+  \item \texttt{cub2d\_pxfeature()}, 56
+
+  \indexspace
+
+  \item Dirichlet boundary conditions, 9
+  \item distmesh2d(), 6
+
+  \indexspace
+
+  \item element
+    \subitem Arnold--Brezzi--Fortin, 63
+    \subitem Lagrange, 3
+    \subitem piecewise cubic, 53
+    \subitem piecewise linear, 6, 43
+    \subitem piecewise linear (3D), 69
+    \subitem piecewise quadratic, 11, 49
+  \item elt, 19
+  \item \texttt{eltx2\_elt()}, 59
+
+  \indexspace
+
+  \item feature hash table, 35
+  \item fht, 8, 19, 35
+  \item \texttt{fht\_num\_vars()}, 39
+  \item \texttt{filenamehack.bash}, 90
+
+  \indexspace
+
+  \item get\texttt  {\_Aphihat()}, 45
+  \item \texttt{get\_feature\_ref()}, 35
+  \item \texttt{get\_pvlist()}, 83
+  \item \texttt{get\_submesh\_vals()}, 88
+  \item \texttt{get\_var\_edge()}, 38
+  \item get\texttt  {\_var\_triangle()}, 37
+
+  \indexspace
+
+  \item Hsieh--Clough--Tocher (HCT) element, 67, 79, 81
+
+  \indexspace
+
+  \item \texttt{int1d\_gauss5()}, 78
+  \item \texttt{int2d\_centroid1()}, 73
+  \item \texttt{int2d\_dunavant33()}, 76
+  \item \texttt{int2d\_gatermann12()}, 74
+  \item \texttt{int2d\_radon7()}, 74
+  \item \texttt{int3d\_centroid1()}, 79
+  \item integration, 73
+    \subitem centroid method, 73, 79
+    \subitem composite, 79
+    \subitem Dunavant method, 76
+    \subitem Gatermann's method, 74
+    \subitem Gauss--Legendre quadrature, 78
+    \subitem Radon's method, 74
+    \subitem three-dimensional, 79
+
+  \indexspace
+
+  \item \texttt{lin2d\_elt()}, 43
+  \item \texttt{lin2d\_get\_Aphihat()}, 45
+  \item \texttt{lin2d\_pxfeature()}, 46
+  \item \texttt{lin3d\_elt()}, 69
+  \item \texttt{lin3d\_get\_Aphihat()}, 70
+  \item \texttt{lin3d\_pxfeature()}, 71
+
+  \indexspace
+
+  \item \texttt{Makefile}, 90
+  \item \texttt{match\_edge\_triangle()}, 41
+
+  \indexspace
+
+  \item natural boundary conditions, 14
+  \item Neumann boundary conditions, 14
+
+  \indexspace
+
+  \item \texttt{order}, 10
+
+  \indexspace
+
+  \item pde, 5, 12
+  \item \texttt{pde}, 10
+  \item PDE representation, 5, 8
+  \item pgassembly2d(), 21
+  \item \texttt{plot\_boundary2d()}, 84
+  \item \texttt{plot\_boundary2dwnormals()}, 85
+  \item pvlist(), 11
+  \item \texttt{pxfeature()}, 46
+
+  \indexspace
+
+  \item \texttt{quad2d\_elt()}, 11, 49
+  \item \texttt{quad2d\_get\_Aphihat()}, 51
+  \item \texttt{quad2d\_pxfeature()}, 52
+
+  \indexspace
+
+  \item \texttt{ref\_triangle\_submesh()}, 86
+  \item reference element, 12, 47
+  \item rhs, 9
+  \item Robin boundary conditions, 13
+
+  \indexspace
+
+  \item Stokes' equation, 63
+
+  \indexspace
+
+  \item t\_index, 41
+  \item \texttt{test\_geom.m}, 93
+  \item \texttt{trans2d\_Aphilist()}, 47
+  \item \texttt{trans3d\_Aphilist()}, 71
+  \item trimesh(), 3, 11, 86
+
+  \indexspace
+
+  \item \texttt{usage.m}, 6
+
+\end{theindex}

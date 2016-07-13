@@ -1,0 +1,39 @@
+\nwixaddsx{c}{{Makefile}{NWpdeB-Mak8-1}{\nwixd {NWpdeB-Mak8-1}}}
+\nwixaddsx{c}{{assembly2dbdry.m}{NWpdeB-assG-1}{\nwixd {NWpdeB-assG-1}}}
+\nwixaddsx{c}{{assembly2d-init}{NWpdeB-assF-1}{\nwixu {NWpdeB-assC-1}\nwixd {NWpdeB-assF-1}}}
+\nwixaddsx{c}{{assembly2d.m}{NWpdeB-assC-1}{\nwixd {NWpdeB-assC-1}}}
+\nwixaddsx{c}{{assembly2d-nl.m}{NWpdeB-assF.2-1}{\nwixd {NWpdeB-assF.2-1}}}
+\nwixaddsx{c}{{assembly2d-precompute-Aphihat}{NWpdeB-assT-1}{\nwixu {NWpdeB-assC-1}\nwixd {NWpdeB-assT-1}}}
+\nwixaddsx{c}{{boundary2d.m}{NWpdeB-bouC-1}{\nwixd {NWpdeB-bouC-1}}}
+\nwixaddsx{c}{{check-derivs.m}{NWpdeB-cheE-1}{\nwixd {NWpdeB-cheE-1}}}
+\nwixaddsx{c}{{const2d-elt.m}{NWpdeB-conD-1}{\nwixd {NWpdeB-conD-1}\nwixd {NWpdeB-conD-2}\nwixd {NWpdeB-conD-3}}}
+\nwixaddsx{c}{{create-fht.m}{NWpdeB-creC-1}{\nwixd {NWpdeB-creC-1}}}
+\nwixaddsx{c}{{cub2d-elt.m}{NWpdeB-cubB-1}{\nwixd {NWpdeB-cubB-1}\nwixd {NWpdeB-cubB-2}\nwixd {NWpdeB-cubB-3}\nwixd {NWpdeB-cubB-4}\nwixd {NWpdeB-cubB-5}}}
+\nwixaddsx{c}{{eltx2-elt.m}{NWpdeB-eltB-1}{\nwixd {NWpdeB-eltB-1}\nwixd {NWpdeB-eltB-2}\nwixd {NWpdeB-eltB-3}}}
+\nwixaddsx{c}{{fht-num-vars.m}{NWpdeB-fhtE-1}{\nwixd {NWpdeB-fhtE-1}}}
+\nwixaddsx{c}{{filelist}{NWpdeB-fil8-1}{\nwixd {NWpdeB-fil8-1}\nwixd {NWpdeB-fil8-2}\nwixd {NWpdeB-fil8-3}\nwixd {NWpdeB-fil8-4}\nwixd {NWpdeB-fil8-5}\nwixd {NWpdeB-fil8-6}\nwixd {NWpdeB-fil8-7}\nwixd {NWpdeB-fil8-8}\nwixd {NWpdeB-fil8-9}\nwixd {NWpdeB-fil8-A}\nwixd {NWpdeB-fil8-B}\nwixd {NWpdeB-fil8-C}\nwixd {NWpdeB-fil8-D}\nwixd {NWpdeB-fil8-E}\nwixd {NWpdeB-fil8-F}\nwixd {NWpdeB-fil8-G}\nwixd {NWpdeB-fil8-H}\nwixd {NWpdeB-fil8-I}\nwixd {NWpdeB-fil8-J}\nwixd {NWpdeB-fil8-K}\nwixd {NWpdeB-fil8-L}\nwixd {NWpdeB-fil8-M}\nwixd {NWpdeB-fil8-N}\nwixd {NWpdeB-fil8-O}\nwixd {NWpdeB-fil8-P}\nwixd {NWpdeB-fil8-Q}\nwixd {NWpdeB-fil8-R}\nwixu {NWpdeB-Mak8-1}\nwixd {NWpdeB-fil8-S}\nwixd {NWpdeB-fil8-T}}}
+\nwixaddsx{c}{{filenamehack.bash}{NWpdeB-filH-1}{\nwixd {NWpdeB-filH-1}}}
+\nwixaddsx{c}{{gen-all-files}{NWpdeB-genD-1}{\nwixd {NWpdeB-genD-1}}}
+\nwixaddsx{c}{{get-feature-ref.m}{NWpdeB-getH-1}{\nwixd {NWpdeB-getH-1}}}
+\nwixaddsx{c}{{get-pvlist.m}{NWpdeB-getC-1}{\nwixd {NWpdeB-getC-1}}}
+\nwixaddsx{c}{{get-submesh-vals.m}{NWpdeB-getI.2-1}{\nwixd {NWpdeB-getI.2-1}}}
+\nwixaddsx{c}{{get-var-edge.m}{NWpdeB-getE-1}{\nwixd {NWpdeB-getE-1}}}
+\nwixaddsx{c}{{get-var-triangle.m}{NWpdeB-getI-1}{\nwixd {NWpdeB-getI-1}}}
+\nwixaddsx{c}{{int2d-dunavant33.m}{NWpdeB-intI-1}{\nwixd {NWpdeB-intI-1}}}
+\nwixaddsx{c}{{int2d-gatermann12.m}{NWpdeB-intJ-1}{\nwixd {NWpdeB-intJ-1}}}
+\nwixaddsx{c}{{int1d-gauss5.m}{NWpdeB-intE.2-1}{\nwixd {NWpdeB-intE.2-1}}}
+\nwixaddsx{c}{{int2d-radon7.m}{NWpdeB-intE-1}{\nwixd {NWpdeB-intE-1}}}
+\nwixaddsx{c}{{lin2d-elt.m}{NWpdeB-linB-1}{\nwixd {NWpdeB-linB-1}\nwixd {NWpdeB-linB-2}\nwixd {NWpdeB-linB-3}\nwixd {NWpdeB-linB-4}\nwixd {NWpdeB-linB-5}}}
+\nwixaddsx{c}{{match-edge-triangle.m}{NWpdeB-matL-1}{\nwixd {NWpdeB-matL-1}}}
+\nwixaddsx{c}{{pde-struct-eg}{NWpdeB-pdeD-1}{\nwixd {NWpdeB-pdeD-1}}}
+\nwixaddsx{c}{{pgassembly2d-init}{NWpdeB-pgaH-1}{\nwixu {NWpdeB-pgaE-1}\nwixd {NWpdeB-pgaH-1}}}
+\nwixaddsx{c}{{pgassembly2d.m}{NWpdeB-pgaE-1}{\nwixd {NWpdeB-pgaE-1}}}
+\nwixaddsx{c}{{pgassembly2d-precompute-Aphilist}{NWpdeB-pgaW-1}{\nwixu {NWpdeB-pgaE-1}\nwixd {NWpdeB-pgaW-1}}}
+\nwixaddsx{c}{{plot-boundary2d.m}{NWpdeB-ploH-1}{\nwixd {NWpdeB-ploH-1}}}
+\nwixaddsx{c}{{plot-boundary2dwnormals.m}{NWpdeB-ploP-1}{\nwixd {NWpdeB-ploP-1}}}
+\nwixaddsx{c}{{quad2d-elt.m}{NWpdeB-quaC-1}{\nwixd {NWpdeB-quaC-1}\nwixd {NWpdeB-quaC-2}\nwixd {NWpdeB-quaC-3}\nwixd {NWpdeB-quaC-4}\nwixd {NWpdeB-quaC-5}}}
+\nwixaddsx{c}{{ref-triangle-submesh.m}{NWpdeB-refM-1}{\nwixd {NWpdeB-refM-1}}}
+\nwixaddsx{c}{{trans2d-Aphilist.m}{NWpdeB-traI-1}{\nwixd {NWpdeB-traI-1}}}
+\nwixaddsx{c}{{trimesh-example}{NWpdeB-triF-1}{\nwixd {NWpdeB-triF-1}}}
+\nwixaddsx{c}{{usage.m}{NWpdeB-usa7-1}{\nwixd {NWpdeB-usa7-1}\nwixd {NWpdeB-usa7-2}\nwixd {NWpdeB-usa7-3}\nwixd {NWpdeB-usa7-4}\nwixd {NWpdeB-usa7-5}\nwixd {NWpdeB-usa7-6}\nwixd {NWpdeB-usa7-7}\nwixd {NWpdeB-usa7-8}\nwixd {NWpdeB-usa7-9}\nwixd {NWpdeB-usa7-A}\nwixd {NWpdeB-usa7-B}\nwixd {NWpdeB-usa7-C}}}
+\nwixaddsx{c}{{visualization-example}{NWpdeB-visL-1}{\nwixd {NWpdeB-visL-1}}}

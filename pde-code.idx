@@ -1,0 +1,107 @@
+\indexentry{trimesh()}{3}
+\indexentry{element!Lagrange}{3}
+\indexentry{PDE representation}{5}
+\indexentry{pde}{5}
+\indexentry{distmesh2d()}{6}
+\indexentry{usage.m@\texttt{usage.m}}{6}
+\indexentry{distmesh2d()}{6}
+\indexentry{element!piecewise linear}{6}
+\indexentry{fht}{8}
+\indexentry{PDE representation}{8}
+\indexentry{coeffs}{9}
+\indexentry{rhs}{9}
+\indexentry{assembly2d()@\texttt{assembly2d()}}{9}
+\indexentry{Dirichlet boundary conditions}{9}
+\indexentry{pde@\texttt{pde}}{10}
+\indexentry{order@\texttt{order}}{10}
+\indexentry{trimesh()}{11}
+\indexentry{pvlist()}{11}
+\indexentry{element!piecewise quadratic}{11}
+\indexentry{quad2d_elt()@\texttt{quad2d\_elt()}}{11}
+\indexentry{assembly2d()@\texttt{assembly2d()}}{12}
+\indexentry{pde}{12}
+\indexentry{reference element}{12}
+\indexentry{convection--diffusion problem}{13}
+\indexentry{Robin boundary conditions}{13}
+\indexentry{Neumann boundary conditions}{14}
+\indexentry{natural boundary conditions}{14}
+\indexentry{bnodes}{15}
+\indexentry{assembly2d()}{19}
+\indexentry{elt}{19}
+\indexentry{fht}{19}
+\indexentry{pgassembly2d()}{21}
+\indexentry{assembly2d()}{24}
+\indexentry{assembly2d_nl()@\texttt{assembly2d\_nl()}}{28}
+\indexentry{assembly2dbdry()@\texttt{assembly2dbdry()}}{31}
+\indexentry{feature hash table}{35}
+\indexentry{get_feature_ref()@\texttt{get\_feature\_ref()}}{35}
+\indexentry{fht}{35}
+\indexentry{create_fht()@\texttt{create\_fht()}}{35}
+\indexentry{get_var_triangle()@get\texttt  {\_var\_triangle()}}{37}
+\indexentry{get_var_edge()@\texttt{get\_var\_edge()}}{38}
+\indexentry{fht_num_vars()@\texttt{fht\_num\_vars()}}{39}
+\indexentry{boundary2d()@\texttt{boundary2d()}}{40}
+\indexentry{bnodes}{41}
+\indexentry{t_index@t\_index}{41}
+\indexentry{bedges}{41}
+\indexentry{match_edge_triangle()@\texttt{match\_edge\_triangle()}}{41}
+\indexentry{element!piecewise linear}{43}
+\indexentry{lin2d_elt()@\texttt{lin2d\_elt()}}{43}
+\indexentry{get_Aphihat()@get\texttt  {\_Aphihat()}}{45}
+\indexentry{lin2d_get_Aphihat()@\texttt{lin2d\_get\_Aphihat()}}{45}
+\indexentry{pxfeature()@\texttt{pxfeature()}}{46}
+\indexentry{lin2d_pxfeature()@\texttt{lin2d\_pxfeature()}}{46}
+\indexentry{trans2d_Aphilist()@\texttt{trans2d\_Aphilist()}}{47}
+\indexentry{reference element}{47}
+\indexentry{element!piecewise quadratic}{49}
+\indexentry{quad2d_elt()@\texttt{quad2d\_elt()}}{49}
+\indexentry{quad2d_get_Aphihat()@\texttt{quad2d\_get\_Aphihat()}}{51}
+\indexentry{quad2d_pxfeature()@\texttt{quad2d\_pxfeature()}}{52}
+\indexentry{element!piecewise cubic}{53}
+\indexentry{cub2d_elt()@\texttt{cub2d\_elt()}}{53}
+\indexentry{cub2d_get_Aphihat()@\texttt{cub2d\_get\_Aphihat()}}{54}
+\indexentry{cub2d_pxfeature()@\texttt{cub2d\_pxfeature()}}{56}
+\indexentry{const2d_elt()@\texttt{const2d\_elt()}}{56}
+\indexentry{const2d_get_Aphihat()@\texttt{const2d\_get\_Aphihat()}}{58}
+\indexentry{eltx2_elt()@\texttt{eltx2\_elt()}}{59}
+\indexentry{Stokes' equation}{63}
+\indexentry{element!Arnold--Brezzi--Fortin}{63}
+\indexentry{abf2d_elt()@\texttt{abf2d\_elt()}}{64}
+\indexentry{abfs2d_elt()@\texttt{abfs2d\_elt()}}{64}
+\indexentry{abfs2d_get_Aphihat()@\texttt{abfs2d\_get\_Aphihat()}}{65}
+\indexentry{abfs2d_pxfeature()@\texttt{abfs2d\_pxfeature()}}{66}
+\indexentry{Hsieh--Clough--Tocher (HCT) element}{67}
+\indexentry{element!piecewise linear (3D)}{69}
+\indexentry{lin3d_elt()@\texttt{lin3d\_elt()}}{69}
+\indexentry{lin3d_get_Aphihat()@\texttt{lin3d\_get\_Aphihat()}}{71}
+\indexentry{lin3d_pxfeature()@\texttt{lin3d\_pxfeature()}}{72}
+\indexentry{trans3d_Aphilist()@\texttt{trans3d\_Aphilist()}}{72}
+\indexentry{integration}{74}
+\indexentry{integration!centroid method}{74}
+\indexentry{int2d_centroid1()@\texttt{int2d\_centroid1()}}{74}
+\indexentry{integration!Radon's method}{75}
+\indexentry{int2d_radon7()@\texttt{int2d\_radon7()}}{75}
+\indexentry{integration!Gatermann's method}{75}
+\indexentry{int2d_gatermann12()@\texttt{int2d\_gatermann12()}}{75}
+\indexentry{integration!Dunavant method}{77}
+\indexentry{int2d_dunavant33()@\texttt{int2d\_dunavant33()}}{77}
+\indexentry{integration!Gauss--Legendre quadrature}{79}
+\indexentry{int1d_gauss5()@\texttt{int1d\_gauss5()}}{79}
+\indexentry{integration!three-dimensional}{80}
+\indexentry{integration!centroid method}{80}
+\indexentry{int3d_centroid1()@\texttt{int3d\_centroid1()}}{80}
+\indexentry{integration!composite}{80}
+\indexentry{Hsieh--Clough--Tocher (HCT) element}{80}
+\indexentry{Hsieh--Clough--Tocher (HCT) element}{81}
+\indexentry{visualization}{85}
+\indexentry{trimesh()}{85}
+\indexentry{get_pvlist()@\texttt{get\_pvlist()}}{86}
+\indexentry{plot_boundary2d()@\texttt{plot\_boundary2d()}}{86}
+\indexentry{plot_boundary2dwnormals()@\texttt{plot\_boundary2dwnormals()}}{87}
+\indexentry{trimesh()}{88}
+\indexentry{ref_triangle_submesh()@\texttt{ref\_triangle\_submesh()}}{88}
+\indexentry{get_submesh_vals()@\texttt{get\_submesh\_vals()}}{90}
+\indexentry{Makefile@\texttt{Makefile}}{92}
+\indexentry{filenamehack.bash@\texttt{filenamehack.bash}}{92}
+\indexentry{check_derivs()@\texttt{check\_derivs()}}{94}
+\indexentry{test_geom.m@\texttt{test\_geom.m}}{95}

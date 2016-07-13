@@ -1,0 +1,88 @@
+function elt = quad2d_elt()
+% function elt = quad2d_elt()
+%
+% Returns the quadratic 2-D (6-point) element data structure
+nvars = [1;1;1;1;1;1];
+flist = [1 0 0;
+         2 0 0;
+         3 0 0;
+         1 2 0;
+         1 3 0;
+         2 3 0];
+vnodes = [0   0;
+          1   0;
+          0   1; 
+          1/2 0;
+          0   1/2;
+          1/3 1/3];
+elt = struct('get_Aphihat',@quad2d_get_Aphihat, ...
+    'nvars',nvars,'flist',flist, ...
+    'pxfeature',@quad2d_pxfeature,'vnodes',vnodes, ...
+    'trans_Aphihat',@trans2d_Aphilist);
+end % function
+
+function Aphilist = quad2d_get_Aphihat(xhat,order)
+% function Aphilist = quad2d_get_Aphihat(xhat,order)
+%
+% Returns array of basis functions, their gradient and Hessian entries
+% for quadratic basis functions on a 2-D reference triangle at xhat.
+% The vertices of the reference triangle are (0,0), (1,0), and (0,1).
+% Aphilist(i,j) is the value of the j'th operator on phi_i at xhat.
+% Here phi_i is the affine function where phi_i(xhat_j) == 1
+% if i == j, and zero otherwise; xhat_i is the i'th vertex listed above.
+%
+% order is the maximum order of derivatives considered (order <= 2)
+%
+% Order of operators: Aphi(xhat) = phi(xhat), d/dx1 phi(xhat),
+% d/dx2 phi(xhat), d^2/dx1^2 phi(xhat), d^2/dx1.dx2 phi(xhat),
+% d^2/dx2^2 phi(xhat).
+x = xhat(1);  y = xhat(2);
+% basis function values
+Aphilist = [2*(1-x-y)*(0.5-x-y);
+            2*x*(x-0.5);
+            2*y*(y-0.5);
+            4*x*(1-x-y);
+            4*y*(1-x-y);
+            4*x*y];
+if order >= 1
+    % gradients (rows) of basis functions
+    Aphilist1 = [2*(2*(x+y)-1.5), 2*(2*(x+y)-1.5);
+                 4*x-1,           0;
+                 0,               4*y-1;
+                 4*(1-y)-8*x,     -4*x;
+                 -4*y,            4*(1-x)-8*y;
+                 4*y,             4*x];
+    Aphilist = [Aphilist, Aphilist1];
+end
+if order >= 2
+    % Hessian matrix entries of basis functions: dx1^2, dx1.dx2, dx2^2
+    Aphilist2 = [4,  4,  4;
+                 4,  0,  0;
+                 0,  0,  4;
+                -8, -4,  0;
+                 0, -4, -8;
+                 0,  4,  0];
+    Aphilist = [Aphilist, Aphilist2];
+end % if
+end % function 
+
+function [px_vars,signs] = quad2d_pxfeature(px)
+% function [px_vars,signs] = quad2d_pxfeature(px)
+%
+% Returns the permutation of the variables (px_vars),
+% and the sign changes (signs) resulting from a permutation (px)
+% applied to a feature of the appropriate dimension (== length(px)).
+% This is for the quadratic 2-D triangle elements.
+dim = sum(px ~= 0)-1;
+switch dim
+    case 0 % points
+        px_vars = [1]; signs = [1];
+    case 1 % edges
+        px_vars = [1]; signs = [1];
+    otherwise % not a valid feature
+        px_vars = []; signs = [];
+end % switch
+end % function
+
+
+

@@ -1,0 +1,73 @@
+function elt = lin2d_elt()
+% function elt = lin2d_elt()
+%
+% Returns the linear 2-D (3-point) element data structure.
+nvars = [1;1;1];
+flist = [1 0 0;
+         2 0 0;
+         3 0 0]; % the three vertices
+vnodes = [0 0;
+          1 0;
+          0 1];
+elt = struct('get_Aphihat',@lin2d_get_Aphihat, ...
+    'nvars',nvars,'flist',flist, ...
+    'pxfeature',@lin2d_pxfeature,'vnodes',vnodes, ...
+    'trans_Aphihat',@trans2d_Aphilist);
+end
+
+function Aphilist = lin2d_get_Aphihat(xhat,order)
+% Aphilist = lin2d_get_Aphihat(xhat,order)
+%
+% Returns array of basis function values, their gradient and Hessian entries
+% for linear (affine) basis functions on a 2-D reference triangle at xhat.
+% The vertices of the reference triangle are (0,0), (1,0), and (0,1).
+% Aphilist(i,j) is the value of the j'th operator on phi_i at xhat.
+% Here phi_i is the affine function where phi_i(xhat_j) == 1
+% if i == j, and zero otherwise; xhat_i is the i'th vertex listed above.
+%
+% Order of operators: Aphi(xhat) = phi(xhat), d/dx1 phi(xhat),
+% d/dx2 phi(xhat), d^2/dx1^2 phi(xhat), d^2/dx1.dx2 phi(xhat),
+% d^2/dx2^2 phi(xhat).  Note that x1 = x and x2 = y.
+x = xhat(1);  y = xhat(2);
+% Basis function values
+Aphilist0 = [1-x-y; 
+             x; 
+             y];
+if order >= 1
+    % Basis gradient values (along rows)
+    Aphilist1 = [-1 -1;
+                  1  0;
+                  0  1];
+end
+if order >= 2
+    % Basis hessian values (along rows: dx1^2, dx1.dx2, dx2^2)
+    Aphilist2 = [0 0 0;
+                 0 0 0;
+                 0 0 0];
+end
+if order == 0
+    Aphilist = Aphilist0;
+elseif order == 1
+    Aphilist = [Aphilist0,Aphilist1];
+elseif order == 2
+    Aphilist = [Aphilist0,Aphilist1,Aphilist2];
+end % if
+end % function
+
+function [px_vars,signs] = lin2d_pxfeature(px)
+% function [px_vars,signs] = lin2d_pxfeature(px)
+%
+% Returns the permutation of the variables (px_vars),
+% and the sign changes (signs) resulting from a permutation (px)
+% applied to a feature of the appropriate dimension (== length(px)).
+% This is for the linear (or affine) 2-D triangle elements.
+dimp1 = sum(px ~= 0);  % dimp1 == dimension plus 1
+switch dimp1
+    case 1 % points
+        px_vars = [1]; signs = [1];
+    otherwise % not a valid feature
+        px_vars = []; signs = [];
+end % switch
+end % function
+
+

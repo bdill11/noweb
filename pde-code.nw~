@@ -1,0 +1,396 @@
+%% LyX 2.0.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+%\documentclass[11pt,english]{article}
+\usepackage{mathpazo}
+\usepackage[]{fontenc}
+\usepackage[latin9]{inputenc}
+\setlength{\parskip}{\smallskipamount}
+\setlength{\parindent}{0pt}
+\usepackage{amssymb}
+\usepackage{esint}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\usepackage{noweb}
+\newenvironment{lyxcode}
+{\par\begin{list}{}{
+\setlength{\rightmargin}{\leftmargin}
+\setlength{\listparindent}{0pt}% needed for AMS classes
+\raggedright
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\normalfont\ttfamily}%
+ \item[]}
+{\end{list}}
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+
+\title{Finite element code: PDE}
+
+
+\author{David E. Stewart}
+
+
+\date{July 9th, 2012}
+
+\maketitle
+
+\section{\label{sec:Overview}Overview}
+
+\global\long\def\R{\mathbb{R}}
+This describes a pure Matlab finite element code for two dimensional
+problems. It is assumed that a triangulation of the domain is given
+in the same format as the output from the Persson \& Strang Matlab
+triangulation code. That is, the basic triangulation data is given
+in the form of a pair $(p,t)$ where $p$ is an array of points: point
+$p_{i}$ is \texttt{p(i,:)}, while triangle $i$ is the triangle with
+vertices \texttt{p(j,:)}, \texttt{p(k,:)}, \texttt{p(l,:)} where \texttt{j
+= t(i,1)}, \texttt{k = t(i,2)} and \texttt{l = t(i,3)}. This can be
+generalized to tetrahedra in three dimensions, etc. This also works
+well with the Matlab \texttt{trimesh()} function for plotting two-dimensional
+meshes.
+
+There are a number of different element types, most notably Lagrange
+elements which represent scalar piecewise polynomials (that is, the
+restriction of the basis functions to each triangle is a polynomial).
+The simplest of these is the Lagrange piecewise linear element, but
+quadratic and cubic Lagrangian elements have also been implemented.
+Extensions to $C^{1}$ elements (such as Bell's triangle and the Argyris
+element) are also planned, but not yet implemented. Code for the elements
+can be found in Section~\ref{sec:Element-types}.
+
+Since the values at certain points are shared by elements on different
+(but touching) triangles, we need a way to determine when these values
+are shared. This is done via a geometric feature hash table. Code
+for these aspects can be found in Section~\ref{sec:Handling-geometric-features}.
+
+The core routines are the assembly routines which form the matrices
+and vectors for the linear systems to be solved. These are for both
+the Galerkin and Petrov--Galerkin methods. Similar routines are provided
+for handling boundary values and conditions. Code for matrix assembly
+can be found in Section~\ref{sec:Matrix-assembly-code}. Part of
+this process is the task of numerical integration. Integration rules
+can be found in Section~\ref{sec:Numerical-integration}.
+
+Testing codes can be found in Section~\ref{sec:Test-code}.
+
+
+\subsection{Basic organization}
+
+Each element type must be able to compute the values of the basis
+functions at each point of the reference triangle $\widehat{K}=\mbox{co}\left\{ \,(0,0),\,(1,0),\,(0,1)\,\right\} $,
+along with the values of a number of \emph{operators} applied to the
+basis functions. That is, for a point $\widehat{\mathbf{x}}\in\widehat{K}$
+and basis function $\widehat{\phi}_{i}$ on $\widehat{K}$ we need
+to be able to compute not only $\widehat{\phi}_{i}(\widehat{\mathbf{x}})$,
+but also $\mathcal{A}\widehat{\phi}_{i}(\widehat{\mathbf{x}})$ where
+$\mathcal{A}=\partial/\partial x_{1}$, $\mathcal{A}=\partial/\partial x_{2}$;
+sometimes higher order derivatives are also necessary, such as for
+4th order PDEs. In that case, each element can also compute $\mathcal{A}\widehat{\phi}_{i}(\widehat{\mathbf{x}})$
+where $\mathcal{A}=\partial^{2}/\partial x_{1}^{2}$, $\mathcal{A}=\partial^{2}/\partial x_{1}\,\partial x_{2}$
+and $\mathcal{A}=\partial^{2}/\partial x_{2}^{2}$. The ordering of
+these operators is essentially fixed across the different element
+types.
+
+There are also elements for providing vector-valued basis functions,
+in which case we also need to use different operators: $\mathcal{A}\widehat{\phi}_{i}(\widehat{\mathbf{x}})=\widehat{\phi}_{i}(\widehat{\mathbf{x}})\cdot\mathbf{e}_{1}$,
+$\mathcal{A}\widehat{\phi}_{i}(\widehat{\mathbf{x}})=\widehat{\phi}_{i}(\widehat{\mathbf{x}})\cdot\mathbf{e}_{2}$,
+$\mathcal{A}\widehat{\phi}_{i}(\widehat{\mathbf{x}})=\partial\widehat{\phi}_{i}(\widehat{\mathbf{x}})/\partial x_{1}\cdot\mathbf{e}_{1}$,
+etc. 
+
+Basis functions on the reference element $\widehat{K}$ are used to
+create basis functions on the actual elements $K=\mbox{co}\left\{ \,\mathbf{p}_{j},\,\mathbf{p}_{k},\,\mathbf{p}_{\ell}\,\right\} $
+by means of an affine transformation $\widehat{\mathbf{x}}\mapsto\mathbf{x}=T_{K}\widehat{\mathbf{x}}+\mathbf{b}_{K}$
+with $T_{K}$ and $\mathbf{b}_{K}$ computed from $\mathbf{p}_{j},\,\mathbf{p}_{k},\,\mathbf{p}_{\ell}$.
+This also transforms that values of $\mathcal{A}'\widehat{\phi}_{i}(\widehat{\mathbf{x}})$
+to compute $\mathcal{A}\phi_{i}(\mathbf{x})$: $\phi_{i}(\mathbf{x})=\widehat{\phi}_{i}(\widehat{\mathbf{x}})$,
+but 
+\[
+\frac{\partial\phi_{i}}{\partial x_{1}}(\mathbf{x})=\frac{\partial\widehat{\phi}_{i}}{\partial\widehat{x}_{1}}(\widehat{\mathbf{x}})\frac{\partial\widehat{x}_{1}}{\partial x_{1}}(\mathbf{x})+\frac{\partial\widehat{\phi}_{i}}{\partial\widehat{x}_{2}}(\widehat{\mathbf{x}})\frac{\partial\widehat{x}_{2}}{\partial x_{1}}(\mathbf{x}),
+\]
+for example. The derivatives $\partial\widehat{x}_{i}/\partial x_{i}$
+
+The matrix entries are formed by means of integrals
+\begin{eqnarray*}
+a_{ij} & = & \int_{\Omega}\sum_{\mathcal{A},\mathcal{B}}c_{\mathcal{A},\mathcal{B}}(\mathbf{x})\,\mathcal{A}\phi_{i}(\mathbf{x})\,\mathcal{B}\phi_{j}(\mathbf{x})\, d\mathbf{x}\\
+ & = & \sum_{K}\int_{K}\sum_{\mathcal{A},\mathcal{B}}c_{\mathcal{A},\mathcal{B}}(\mathbf{x})\,\mathcal{A}\phi_{i}(\mathbf{x})\,\mathcal{B}\phi_{j}(\mathbf{x})\, d\mathbf{x}.
+\end{eqnarray*}
+The sum over $\mathcal{A}$ and $\mathcal{B}$ is over all the operators
+used to define the Galerkin form of the partial differential equations;
+the sum over $K$ is the sum over all the triangles of the triangulation.
+To compute the integral over $K$ we use rules for integration over
+the reference triangle $\widehat{K}$. 
+
+For the Petrov--Galerkin method, we can use different basis functions
+(and thus different element types), but they must be based on the
+same triangulation:
+\[
+b_{ij}=\sum_{K}\int_{K}\sum_{\mathcal{A},\mathcal{B}}c_{\mathcal{A},\mathcal{B}}(\mathbf{x})\,\mathcal{A}\psi_{i}(\mathbf{x})\,\mathcal{B}\phi_{j}(\mathbf{x})\, d\mathbf{x}.
+\]
+There are also matrix assembly routines for boundaries. Boundaries
+of two-dimensional regions are given as sets of edges (each edge being
+a pair of indexes into the point array \texttt{p}).
+
+
+\subsection{\label{sub:PDE-representation}PDE representation}
+
+The PDE itself is represented by \texttt{pde} structure, which is
+based on the Galerkin (or Galerkin--Petrov) method. If the weak form
+is of the Galerkin type:
+\[
+\int_{\Omega}\sum_{\mathcal{A},\mathcal{B}}c_{\mathcal{A},\mathcal{B}}(\mathbf{x})\,\mathcal{A}v(\mathbf{x})\,\mathcal{B}u(\mathbf{x})\, d\mathbf{x}=\int_{\Omega}\sum_{\mathcal{A}}f_{\mathcal{A}}(\mathbf{x})\,\mathcal{A}v(\mathbf{x})\, d\mathbf{x}\qquad\mbox{for all }v\in\mbox{span}\left\{ \phi_{i}\right\} _{i=1}^{N},
+\]
+then \texttt{pde} consists of the maximum order of the operators $\mathcal{A}$
+and $\mathcal{B}$, together with the functions $C\colon\Omega\to\R^{M\times M}$
+and $\mathbf{f}\colon\Omega\to\R^{M}$ where $M$ is the number of
+operators $\mathcal{A}$ considered. For example, for a scalar problem
+in two dimensions where the Galerkin form only involves function values
+and first derivatives, $\mathcal{A}$ can be $I$ (identity) for the
+function values, $\partial/\partial x_{1}$, or $\partial/\partial x_{2}$
+for the first derivatives. Then $M=3$. 
+
+For the PDE $-\Delta u=f(\mathbf{x})$ with $f(\mathbf{x})=x_{1}^{2}\,\exp(x_{2})$,
+we use:
+
+<<pde-struct-eg>>=
+pde = struct('coeffs',@(x)diag([0,1,1]), ...
+        'rhs',@(x)[x(1)^2*exp(x(2));0;0],'order',1)
+@
+
+
+
+\subsection{\label{sub:Usage}Usage}
+
+
+\section{\label{sec:Matrix-assembly-code}Matrix assembly code}
+
+The main matrix assembly code \texttt{assembly2d()} is given below.
+The function adds values in the matrix $A$ and the vector $\mathbf{b}$.
+In this way, the full assembly process can be accomplished ``in pieces'',
+if needed. So, for stand-alone use, $A$ and $\mathbf{b}$ must be
+initialized to zero. Note that $A$ can (and should) be a sparse matrix.
+
+The PDE is represented by two functions which are in the \texttt{pde}
+structure (see Subsection~\ref{sub:PDE-representation}).
+
+The element type is defined by the \texttt{elt} structure (see Section~\ref{sec:Element-types}).
+
+The triangulation is given by the pair (\texttt{p},\texttt{t}) as
+described in Section~\ref{sec:Overview}. 
+
+The hash table for the map from geometric features (triangles, edges,
+and vertices) to variables is \texttt{fht} (see Section~\ref{sec:Handling-geometric-features}).
+
+The points and weights for the integration method on the reference
+element are returned by the function \texttt{intmethod()} (see Section~\ref{sec:Numerical-integration}).
+These points and weights are computed in \emph{assembly2d-init}.
+
+The line
+\begin{lyxcode}
+{[}vlist,slist{]}~=~get\_var\_triangle(t(i,:),fht,elt,np);
+\end{lyxcode}
+gets the list of (global) variables indexes (\texttt{vlist}) associated
+with triangle $i$, along with the list of sign changes needed (\texttt{slist}). 
+
+<<filelist>>=
+assembly2d.m \
+<<assembly2d.m>>=
+function [A,b] = assembly2d(A,b,pde,elt,p,t,fht,intmethod)
+% function [A,b] = assembly2d(A,b,pde,elt,p,t,fht,intmethod)
+% Adds the assembled matrix and vector representing the
+% given PDE (pde) to the A matrix & b vector.
+% This uses a given element (elt) with the triangulation given by (p,t).
+% The feature hash table (fht) is used to obtain variable indexes
+% for given features. This is obtained by create_fht().
+%
+% A must be nv x nv and b must be nv x 1 where nv is the total
+% number of variables (as returned by fht_num_vars()).
+% Reference triangle has vertices (0,0), (1,0), (0,1).
+<<assembly2d-init>>
+<<assembly2d-precompute-Aphihat>>
+for i = 1:size(t,1) % for all triangles ...
+    % obtain variable list and signs for this triangle
+    [vlist,slist] = get_var_triangle(t(i,:),fht,elt,np);
+    % set up affine transformation xhat :-> x = T.xhat + b0
+    i1 = t(i,1);  i2 = t(i,2);  i3 = t(i,3);
+    T = [p(i2,:)'-p(i1,:)', p(i3,:)'-p(i1,:)'];
+    b0 = p(i1,:)';
+    % form weighted sum of integrand at integration points
+    intval1 = 0;
+    intval2 = 0;
+    for k = 1:length(w_int)
+        Aphival = elt.trans_Aphihat(T,Aphihatvals{k},order);
+        Dmat    = pde.coeffs(T*p_int(k,:)'+b0);
+        rhsvec  = pde.rhs(T*p_int(k,:)'+b0);
+        integrand_val1 = Aphival*Dmat*Aphival';
+        integrand_val2 = Aphival*rhsvec;
+        intval1 = intval1 + w_int(k)*integrand_val1;
+        intval2 = intval2 + w_int(k)*integrand_val2;
+    end
+    detT = abs(det(T));
+    intval1 = intval1*detT; % scale by Jacobian
+    intval2 = intval2*detT;
+    intval1 = diag(slist)*intval1*diag(slist); % change signs if needed
+    intval2 = slist'.*intval2;
+    A(vlist,vlist) = A(vlist,vlist) + intval1; % add to matrix & vec
+    b(vlist) = b(vlist) + intval2;
+end
+@
+
+Initialization for \emph{assembly2d}:
+
+<<assembly2d-init>>=
+[p_int,w_int] = intmethod(); % points and weights for reference triangle
+% np is the total number of points in the triangulation
+np = size(p,1);
+% compute nv = total number of variables
+nv = fht_num_vars(fht);
+% nv_elt is the number of variables in one element
+nv_elt = sum(elt.nvars);
+% order is the order of derivatives used in the assembly;
+% we need 0 <= order <= 2
+order = pde.order;
+intval1 = zeros(nv_elt,nv_elt);
+intval2 = zeros(nv_elt,1);
+@
+
+For efficiency, we precompute the values of $\mathcal{A}\widehat{\phi}_{i}(\widehat{\mathbf{x}}_{j})$
+where $\widehat{\mathbf{x}}_{j}$ are the integration points on the
+reference triangle. These depend only on the element type and the
+reference element $\widehat{K}$. 
+
+<<assembly2d-precompute-Aphihat>>=
+% Save get_Aphihat() values for all the integration points
+% on the reference element
+Aphihatvals = cell(length(w_int),1);
+for k = 1:length(w_int)
+    Aphihatvals{k} = elt.get_Aphihat(p_int(k,:),order);
+end
+@
+
+{}
+
+
+\section{\label{sec:Handling-geometric-features}Handling geometric features}
+
+Geometric features are triangles, edges, and points (vertices) of
+the triangulation. Each variable is associated with a single geometric
+feature: if several seem possible, then we choose the one of lowest
+dimension. For example, if we use a piecewise linear finite element
+space over a given triangulation, then each variable is associated
+with a vertex of a triangle in the triangulation. Then each vertex
+has one variable whose value is the same for all the triangles sharing
+that vertex. This ensures that at any edge shared between two triangles,
+the value of a piecewise linear function is the same at the ends of
+the edge and so is the same along the entire edge. This ensures continuity
+of the piecewise linear function.
+
+A function in the piecewise linear finite element space will have
+the form
+\[
+v_{h}(\mathbf{x})=\sum_{i=1}^{N}v_{i}\,\phi_{i}(\mathbf{x})
+\]
+where $v_{i}$ are the values associated with the vertices of the
+triangulation; for each triangle $K$ in the triangulation, $\phi_{i}|K$
+is a linear (actually, affine) function. When we assemble the part
+of a matrix for triangle $K$, we need to ensure that the same $v_{i}$
+is used. To do this, we have a list of all the variables (in order)
+associated with a given vertex. 
+
+Similarly, for a quadratic Lagrange basis, we typically use a nodal
+basis using values at the vertices of a triangle, and the values at
+the midpoints of the edges of the triangle. A function in the finite
+element space generated by these nodal basis functions must have the
+same values at every point on an edge shared between two elements.
+It is sufficient if the values at the shared vertices and shared edge's
+midpoint are equal: two quadratic functions of one variable that are
+equal at three points must be the same. The basis functions $\phi_{i}$
+have an associated value or variable $v_{i}$ for representing a function
+in the finite element space
+\[
+v_{h}(\mathbf{x})=\sum_{i=1}^{N}v_{i}\,\phi_{i}(\mathbf{x}).
+\]
+If $\phi_{i}$ is a nodal basis function for a vertex then $v_{i}$
+is associated with that vertex; if it is associated with a midpoint
+of an edge, it is associated with that edge. 
+
+For a cubic Lagrange basis, we use a nodal basis using values at the
+vertices, values at points along each edge at the 1/3 and 2/3 positions,
+and one at the centroid of the triangle. This time there is one variables
+associated with each vertex, one with each triangle, but two with
+each edge. It is important to distinguish between the two variables
+associated with a given edge, because they correspond to different
+basis functions. 
+
+Each geometric feature then has an associated ordered list of variables.
+To store these we use a hash table. Matlab's container.Map, however,
+allows only string or integer keys, so we need to convert a feature
+(given as a list of indexes into the p array) into an integer. This
+is done as follows:
+
+<<filelist>>=
+get_feature_ref.m \
+<<get\_feature\_ref.m>>=
+function ref = get_feature_ref(f,np)
+% function ref = get_feature_ref(f,np)
+%
+% Return a unique integer for the given feature, for
+% use in the feature hashtable.
+% np is the number of points in the triangulation.
+ref = sum(int64(f) .* int64(np).^int64(0:length(f)-1));
+end
+@
+
+From the triangulation and the element type we can create the entire
+hash table:
+
+xx
+
+
+\section{\label{sec:Element-types}Element types}
+
+
+\section{\label{sec:Numerical-integration}Numerical integration}
+
+
+\section{\label{sec:Makefiles-etc}Makefiles and using Noweb}
+
+This article is a simple test for using Noweb for mixing code and
+documentation. One difficulty with using Noweb is that there is no
+automatic way of generating all code files. However, we can use a
+\emph{Makefile} to identify all actual code files and so that we can
+obtain all the code files by means of the following code fragment:
+
+<<gen-all-files>>=
+notangle -t8 -RMakefile file.nw > Makefile
+make all
+@
+
+The ``\texttt{-t8}'' option is to ensure that tabs are passed without
+conversion to spaces.
+
+The \emph{Makefile} will know which files to create and the procedure
+for creating them. The code chunk \emph{filelist} contains the list
+of files to create (on separate lines but with ``\textbackslash{}''
+at the end of each line). Because of this we need a blank line following
+the \emph{filelist} chunk.
+
+<<Makefile>>=
+files = <<filelist>>
+
+source = pde-code.nw
+all: $(files)
+$(files): $(source)
+	notangle -R$@ $(source) > $@
+@
+
+
+\section{\label{sec:Test-code}Test code}
+
+\bibliographystyle{plain}
+\bibliography{numerical}
+
+\end{document}

@@ -1,0 +1,916 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass beamer
+\begin_preamble
+%\usepackage{beamerthemesplit}
+\usepackage{beamerthemeBerlin}
+\newcommand{\ds}{\displaystyle}
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman palatino
+\font_sans helvet
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 0
+\use_mhchem 0
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Literate programming, Matlab &
+\begin_inset Newline newline
+\end_inset
+
+finite element method
+\end_layout
+
+\begin_layout Author
+David Stewart
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout BeginFrame
+Literate programming
+\end_layout
+
+\begin_layout Itemize
+Originally developed by Donald Knuth while creating 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+TeX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Combines code (e.g., Pascal) and documentation (e.g., 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+TeX
+\end_layout
+
+\end_inset
+
+/
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX
+\end_layout
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Itemize
+Knuth's system was called WEB
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename WEB-intro.eps
+	width 5cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+NoWeb
+\end_layout
+
+\begin_layout Itemize
+NoWeb is a simple version of this designed for any kind of source code
+\end_layout
+
+\begin_layout Itemize
+Unlike WEB, there is no prettyprinting of the source code
+\end_layout
+
+\begin_layout Itemize
+Documentation is in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+TeX
+\end_layout
+
+\end_inset
+
+/
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+What NoWeb looks like
+\end_layout
+
+\begin_layout Standard
+Source (NoWeb):
+\end_layout
+
+\begin_layout LyX-Code
+For the PDE $-
+\backslash
+Delta u=f(
+\backslash
+mathbf{x})$ with
+\end_layout
+
+\begin_layout LyX-Code
+$f(
+\backslash
+mathbf{x})=x_{1}^{2}
+\backslash
+,
+\backslash
+exp(x_{2})$, we use:
+\end_layout
+
+\begin_layout LyX-Code
+<<pde-struct-eg>>= 
+\end_layout
+
+\begin_layout LyX-Code
+pde = struct('coeffs',@(x)diag([0,1,1]), ...
+\end_layout
+
+\begin_layout LyX-Code
+         'rhs',@(x)[x(1)^2*exp(x(2));0;0],'order',1) 
+\end_layout
+
+\begin_layout LyX-Code
+@ 
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginPlainFrame
+
+\end_layout
+
+\begin_layout Standard
+What is looks like in the documentation:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align center
+\begin_inset Graphics
+	filename sample-noweb.png
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the code:
+\end_layout
+
+\begin_layout LyX-Code
+pde = struct('coeffs',@(x)diag([0,1,1]), ...
+\end_layout
+
+\begin_layout LyX-Code
+         'rhs',@(x)[x(1)^2*exp(x(2));0;0],'order',1)
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+More Noweb\SpecialChar \ldots{}
+
+\end_layout
+
+\begin_layout Standard
+The basic syntax for the chunks of code is
+\end_layout
+
+\begin_layout LyX-Code
+<<name-of-code>>=
+\end_layout
+
+\begin_layout LyX-Code
+code chunk goes here
+\end_layout
+
+\begin_layout LyX-Code
+it can go for many lines
+\end_layout
+
+\begin_layout LyX-Code
+but it ends with 
+\begin_inset Quotes eld
+\end_inset
+
+@
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+@
+\end_layout
+
+\begin_layout Standard
+Actually 
+\begin_inset Quotes eld
+\end_inset
+
+@
+\begin_inset Quotes erd
+\end_inset
+
+ indicates the start of normal 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX
+\end_layout
+
+\end_inset
+
+.
+ You can have several different chunks one after the other:
+\end_layout
+
+\begin_layout LyX-Code
+<<chunk1>>=
+\end_layout
+
+\begin_layout LyX-Code
+This is chunk 1.
+\end_layout
+
+\begin_layout LyX-Code
+<<chunk2>>=
+\end_layout
+
+\begin_layout LyX-Code
+This is chunk 2.
+\end_layout
+
+\begin_layout LyX-Code
+@
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginPlainFrame
+
+\end_layout
+
+\begin_layout Standard
+Chunks can refer to other chunks.
+\end_layout
+
+\begin_layout LyX-Code
+<<my-code.txt>>=
+\end_layout
+
+\begin_layout LyX-Code
+This is a collection of chunks, strung together.
+\end_layout
+
+\begin_layout LyX-Code
+1st: <<chunk1>>
+\end_layout
+
+\begin_layout LyX-Code
+2nd: <<chunk2>>
+\end_layout
+
+\begin_layout LyX-Code
+@
+\end_layout
+
+\begin_layout Standard
+If a chunk is 
+\begin_inset Quotes eld
+\end_inset
+
+defined
+\begin_inset Quotes erd
+\end_inset
+
+ multiple times, just concatenate the chunks to form one large chunk:
+\end_layout
+
+\begin_layout LyX-Code
+<<chunk3>>=
+\end_layout
+
+\begin_layout LyX-Code
+This is yet another chunk.
+\end_layout
+
+\begin_layout LyX-Code
+<<my-code.txt>>=
+\end_layout
+
+\begin_layout LyX-Code
+3rd: <<chunk3>>
+\end_layout
+
+\begin_layout LyX-Code
+@
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginPlainFrame
+
+\end_layout
+
+\begin_layout Standard
+To generate code 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+chunks
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ from NoWeb file:
+\end_layout
+
+\begin_layout LyX-Code
+notangle -Rmy-code.txt source-file.nw > my-code.txt
+\end_layout
+
+\begin_layout Standard
+Note that 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+my-code.txt
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ is the name of the root code chunk that is generated.
+ A NoWeb file can have many root chunks.
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Using with LyX
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LyX{}
+\end_layout
+
+\end_inset
+
+ is a WYSIWYM 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX
+\end_layout
+
+\end_inset
+
+-based editor.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LyX{}
+\end_layout
+
+\end_inset
+
+ has a large number of different styles (all from 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX
+\end_layout
+
+\end_inset
+
+) with convenient ways of handling cross-references, indexes, bibliographies,
+ structured documents, graphics, and can provide output in multiple formats
+ (DVI, PS, PDF, text, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LaTeX
+\end_layout
+
+\end_inset
+
+, OpenDocument) and NoWeb.
+ 
+\end_layout
+
+\begin_layout Standard
+The NoWeb export option produces a 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+.nw
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ file.
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Pros & Cons of literate programming
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Pros:
+\end_layout
+
+\begin_layout Itemize
+Documentation and code are together.
+\end_layout
+
+\begin_layout Itemize
+Recursive use of code chunks encourages a top-down (
+\begin_inset Quotes eld
+\end_inset
+
+stepwise refinement
+\begin_inset Quotes erd
+\end_inset
+
+) method of software development.
+\end_layout
+
+\begin_layout Itemize
+Not only can you have the formulas with the code, but also the 
+\emph on
+derivation
+\emph default
+ of the formulas can be kept with the code.
+\end_layout
+
+\begin_layout Itemize
+Graphics can be included in the documentation easily (unlike documentation
+ generated from source code).
+\end_layout
+
+\begin_layout Itemize
+There is a single source file (for everything!)
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginPlainFrame
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Cons:
+\end_layout
+
+\begin_layout Itemize
+The run-debug-edit cycle is more complex.
+\end_layout
+
+\begin_layout Itemize
+Recursive use of code chunks encourages a top-down (
+\begin_inset Quotes eld
+\end_inset
+
+stepwise refinement
+\begin_inset Quotes erd
+\end_inset
+
+) method of software development.
+\end_layout
+
+\begin_layout Itemize
+The documents tend to be rather large.
+\end_layout
+
+\begin_layout Itemize
+There is more work involved.
+\end_layout
+
+\begin_layout Itemize
+Not suitable for very large scale software development.
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Pros and Cons of NoWeb
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Pros:
+\end_layout
+
+\begin_layout Itemize
+Language independent --- can include scripts, Makefiles, and text files
+ for data or output
+\end_layout
+
+\begin_layout Itemize
+Simple syntax
+\end_layout
+
+\begin_layout Itemize
+Integrated into 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+LyX
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Multi-platform (Unix/Linux, Mac, Windows under Cygwin)
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Cons:
+\end_layout
+
+\begin_layout Itemize
+Not maintained
+\end_layout
+
+\begin_layout Itemize
+Main implementation is based on the Icon programming language
+\end_layout
+
+\begin_layout Itemize
+Installation could be simpler
+\end_layout
+
+\begin_layout Itemize
+Does not allow underscore 
+\begin_inset Quotes eld
+\end_inset
+
+_
+\begin_inset Quotes erd
+\end_inset
+
+ in chunk/file names
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginFrame
+Tricks to make things easier
+\end_layout
+
+\begin_layout Standard
+Scripts and Makefiles can reduce the effort needed to use NoWeb: Makefiles
+ can be generated in NoWeb that will create all files desired from the NoWeb
+ file:
+\end_layout
+
+\begin_layout LyX-Code
+notangle -t8 -RMakefile my-noweb-file.nw > Makefile
+\end_layout
+
+\begin_layout LyX-Code
+make all
+\end_layout
+
+\begin_layout Standard
+You need to add some items to your NoWeb file to do this.
+ For each root chunk for a file, add a 
+\family typewriter
+filelist
+\family default
+ entry (only needed once for each file):
+\end_layout
+
+\begin_layout LyX-Code
+<<filelist>>=
+\end_layout
+
+\begin_layout LyX-Code
+new-file.txt 
+\backslash
+
+\end_layout
+
+\begin_layout LyX-Code
+<<new-file.txt>>=
+\end_layout
+
+\begin_layout LyX-Code
+....
+\end_layout
+
+\begin_layout LyX-Code
+@
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginPlainFrame
+
+\end_layout
+
+\begin_layout Standard
+A 
+\family typewriter
+Makefile
+\family default
+ should be included:
+\end_layout
+
+\begin_layout LyX-Code
+<<Makefile>>=
+\end_layout
+
+\begin_layout LyX-Code
+files1 = <<filelist>>
+\end_layout
+
+\begin_layout LyX-Code
+files2 = my-noweb-file.tex filelist
+\end_layout
+
+\begin_layout LyX-Code
+files = $(files1) $(files2)
+\end_layout
+
+\begin_layout LyX-Code
+source = my-noweb-file.nw
+\end_layout
+
+\begin_layout LyX-Code
+all: $(files)
+\end_layout
+
+\begin_layout LyX-Code
+$(files): $(source)
+\end_layout
+
+\begin_layout LyX-Code
+	    notangle -R$@ $(source) > $@
+\end_layout
+
+\begin_layout LyX-Code
+my-noweb-file.tex: $(source)
+\end_layout
+
+\begin_layout LyX-Code
+	    noweave -delay -index $(source) > $@
+\end_layout
+
+\begin_layout LyX-Code
+@
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\begin_layout BeginPlainFrame
+
+\end_layout
+
+\begin_layout Standard
+Matlab likes underscores in file names for 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+.m
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ files, but can't use dashes 
+\begin_inset Quotes eld
+\end_inset
+
+--
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+So all 
+\begin_inset Quotes eld
+\end_inset
+
+
+\family typewriter
+.m
+\family default
+
+\begin_inset Quotes erd
+\end_inset
+
+ filenames in NoWeb are written with dashes, which are turned into underscores
+ later by a script.
+\end_layout
+
+\begin_layout Standard
+There is a further script that combines all these to give a one-line command
+ to create the code and documentation files.
+\end_layout
+
+\begin_layout Standard
+In spite of these complications, the system works reasonably well.
+\end_layout
+
+\begin_layout EndFrame
+
+\end_layout
+
+\end_body
+\end_document

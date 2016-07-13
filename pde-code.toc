@@ -1,0 +1,162 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Overview}{3}
+\contentsline {subsection}{\numberline {1.1}Basic organization}{4}
+\contentsline {subsection}{\numberline {1.2}PDE representation}{5}
+\contentsline {subsection}{\numberline {1.3}Usage}{6}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {1.3.1}Usage: a convection diffusion problem}{13}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\contentsline {section}{\numberline {2}Basic assumptions}{18}
+\contentsline {section}{\numberline {3}Matrix assembly code}{19}
+\contentsline {subsection}{\numberline {3.1}Main two-dimensional assembly function}{19}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\contentsline {subsection}{\numberline {3.2}Petrov--Galerkin method}{21}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\contentsline {subsection}{\numberline {3.3}Re-factored two-dimensional assembly function}{24}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\contentsline {subsection}{\numberline {3.4}Mesh-based functions and nonlinear problems}{28}
+\select@language {english}
+\contentsline {subsection}{\numberline {3.5}Boundary assembly}{31}
+\select@language {english}
+\contentsline {section}{\numberline {4}Handling geometric features}{34}
+\contentsline {subsection}{\numberline {4.1}Feature hash tables}{35}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\contentsline {subsection}{\numberline {4.2}Geometric utilities}{40}
+\contentsline {subsubsection}{\numberline {4.2.1}Find boundary}{40}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {4.2.2}Matching edges to triangles}{41}
+\select@language {english}
+\contentsline {section}{\numberline {5}Element types}{43}
+\contentsline {subsection}{\numberline {5.1}Piecewise linear elements}{43}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {5.1.1}Piecewise linear elements: get\_Aphihat()}{45}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {5.1.2}Piecewise linear elements: pxfeature()}{46}
+\select@language {english}
+\contentsline {subsection}{\numberline {5.2}Transformation routines: scalar Lagrange elements}{47}
+\select@language {english}
+\contentsline {subsection}{\numberline {5.3}Piecewise quadratic elements}{49}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {5.3.1}Piecewise quadratic elements: get\_Aphihat()}{51}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {5.3.2}Piecewise quadratic elements: pxfeature()}{52}
+\select@language {english}
+\contentsline {subsection}{\numberline {5.4}Piecewise cubic elements}{53}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {5.4.1}Piecewise cubic elements: get\_Aphihat}{54}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {5.4.2}Piecewise cubic elements: pxfeature()}{56}
+\select@language {english}
+\contentsline {subsection}{\numberline {5.5}Piecewise constant elements}{56}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\contentsline {subsection}{\numberline {5.6}Vector elements}{59}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {5.6.1}Vector elements: pxfeature()}{61}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {5.6.2}Vector elements: trans\_Aphilist()}{62}
+\select@language {english}
+\contentsline {subsection}{\numberline {5.7}$C^{1}$ elements: Bell's triangle}{63}
+\contentsline {subsection}{\numberline {5.8}Stokes' equations: the Arnold--Brezzi--Fortin elements}{63}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\contentsline {subsection}{\numberline {5.9}Hsieh--Clough--Tocher $C^{1}$ element}{67}
+\select@language {english}
+\select@language {english}
+\contentsline {subsection}{\numberline {5.10}Three-dimensional elements}{69}
+\contentsline {subsubsection}{\numberline {5.10.1}Piecewise linear three-dimensional elements}{69}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\contentsline {subsection}{\numberline {5.11}Three-dimensional scalar transformations}{72}
+\select@language {english}
+\contentsline {section}{\numberline {6}Numerical integration}{74}
+\contentsline {subsection}{\numberline {6.1}Two-dimensional integration methods}{74}
+\contentsline {subsubsection}{\numberline {6.1.1}Centroid method}{74}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {6.1.2}Radon's method}{75}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {6.1.3}Gatermann's method}{75}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {6.1.4}A method of Dunavant}{77}
+\select@language {english}
+\contentsline {subsection}{\numberline {6.2}One-dimensional integration methods}{79}
+\contentsline {subsubsection}{\numberline {6.2.1}Gauss--Legendre quadrature}{79}
+\select@language {english}
+\contentsline {subsection}{\numberline {6.3}Three-dimensional integration}{80}
+\contentsline {subsubsection}{\numberline {6.3.1}Centroid method}{80}
+\select@language {english}
+\contentsline {subsection}{\numberline {6.4}Composite integration rules}{80}
+\select@language {english}
+\select@language {english}
+\contentsline {section}{\numberline {7}Adaptation}{82}
+\contentsline {subsection}{\numberline {7.1}Representation of refined mesh}{85}
+\contentsline {subsection}{\numberline {7.2}Combining multiple levels of refinement in matrix assembly}{85}
+\contentsline {subsection}{\numberline {7.3}Error estimation and identification of triangles to refine}{85}
+\contentsline {section}{\numberline {8}Output and visualization}{85}
+\contentsline {subsection}{\numberline {8.1}Visualization}{85}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {8.1.1}Visualizing solutions (and mesh functions)}{86}
+\select@language {english}
+\select@language {english}
+\contentsline {subsubsection}{\numberline {8.1.2}Boundary visualization}{86}
+\select@language {english}
+\select@language {english}
+\contentsline {subsection}{\numberline {8.2}Refined output}{88}
+\select@language {english}
+\select@language {english}
+\contentsline {section}{\numberline {9}Installation}{92}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\contentsline {section}{\numberline {10}Test code}{94}
+\contentsline {subsection}{\numberline {10.1}Checking consistency of element values and derivatives}{94}
+\select@language {english}
+\contentsline {subsection}{\numberline {10.2}Testing basic geometric operations}{95}
+\select@language {english}
+\select@language {english}
+\select@language {english}
+\contentsline {subsection}{\numberline {10.3}Testing overall system}{97}
+\contentsline {section}{\numberline {11}To do}{97}
+\contentsline {section}{\numberline {12}Conclusions}{98}
+\select@language {english}

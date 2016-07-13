@@ -1,0 +1,38 @@
+\def\cprime{$'$}
+\begin{thebibliography}{1}
+
+\bibitem{atk:ina}
+K.~E. Atkinson.
+\newblock {\em An Introduction to Numerical Analysis}.
+\newblock J. Wiley and sons, 1978.
+\newblock 1st edition.
+
+\bibitem{bs:mtfem}
+Susanne~C. Brenner and L.~Ridgway Scott.
+\newblock {\em The mathematical theory of finite element methods}, volume~15 of
+  {\em Texts in Applied Mathematics}.
+\newblock Springer-Verlag, New York, second edition, 2002.
+
+\bibitem{dun:hdesgqrt}
+D.~A. Dunavant.
+\newblock High degree efficient symmetrical {G}aussian quadrature rules for the
+  triangle.
+\newblock {\em Internat. J. Numer. Methods Engrg.}, 21(6):1129--1148, 1985.
+
+\bibitem{gat:cscfst}
+Karin Gatermann.
+\newblock The construction of symmetric cubature formulas for the square and
+  the triangle.
+\newblock {\em Computing}, 40(3):229--240, 1988.
+
+\bibitem{ps:smgm}
+Per-Olof Persson and Gilbert Strang.
+\newblock A simple mesh generator in {M}atlab.
+\newblock {\em SIAM Rev.}, 46(2):329--345 (electronic), 2004.
+
+\bibitem{rad:zmk}
+Johann Radon.
+\newblock Zur mechanischen {K}ubatur.
+\newblock {\em Monatsh. Math.}, 52:286--300, 1948.
+
+\end{thebibliography}
